@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":["file:///Users/utkarshshukla/Medora/client/pages/_app.js"],"sourcesContent":["// pages/_app.js\nimport \"../styles/global.css\";\nimport { SessionProvider } from \"next-auth/react\";\n\nfunction MyApp({ Component, pageProps: { session, ...pageProps } }) {\n  return (\n    <SessionProvider session={session}>\n      <Component {...pageProps} />\n    </SessionProvider>\n  );\n}\n\nexport default MyApp;\n"],"names":[],"mappings":"AAAA,gBAAgB;;;;;AAEhB;;;;AAEA,SAAS,MAAM,EAAE,SAAS,EAAE,WAAW,EAAE,OAAO,EAAE,GAAG,WAAW,EAAE;IAChE,qBACE,qKAAC,mIAAA,CAAA,kBAAe;QAAC,SAAS;kBACxB,cAAA,qKAAC;YAAW,GAAG,SAAS;;;;;;;;;;;AAG9B;uCAEe","debugId":null}},
+    {"offset": {"line": 49, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
