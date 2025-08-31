@@ -1,10 +1,10 @@
 # Medora - Lab Test Website
 
-This is a [Next.js](https://nextjs.org) project for a lab test booking website with a Go backend API.
+This is an [Astro](https://astro.build) project for a lab test booking website with a Go backend API.
 
 ## Project Structure
 
-- **Frontend**: Next.js application (port 3000)
+- **Frontend**: Astro application with React components (port 3000)
 - **Backend**: Go API server (port 8080) - currently using a Node.js mock server
 - **Mock Server**: Node.js Express server for development (port 8080)
 
@@ -18,23 +18,18 @@ This is a [Next.js](https://nextjs.org) project for a lab test booking website w
 
 ### Option 1: Using Mock Server (Recommended for Development)
 
-1. **Install Frontend Dependencies:**
+1. **Install Dependencies:**
    ```bash
    npm install
    ```
 
-2. **Install Mock Server Dependencies:**
-   ```bash
-   npm install express cors --legacy-peer-deps
-   ```
-
-3. **Start the Mock Backend Server:**
+2. **Start the Mock Backend Server:**
    ```bash
    node mock-server.js
    ```
    This will start the mock server on http://localhost:8080
 
-4. **Start the Frontend Development Server:**
+3. **Start the Frontend Development Server:**
    ```bash
    npm run dev
    # or
@@ -95,10 +90,10 @@ This is a [Next.js](https://nextjs.org) project for a lab test booking website w
 ## Development
 
 The frontend uses:
-- Next.js 15.2.0 with React 19
-- NextAuth.js for authentication
+- Astro 4.0 with React 18
 - Tailwind CSS for styling
-- Turbopack for faster development builds
+- React components for interactive features
+- Server-side rendering for better performance
 
 The mock server provides realistic test data for development without requiring a database connection.
 
