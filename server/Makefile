@@ -1,7 +1,8 @@
 # Load environment variables from .env file
-include .env
-export $(shell sed 's/=.*//' .env)
-
+ifneq (,$(wildcard .env))
+    include .env
+    export $(shell sed 's/=.*//' .env)
+endif
 # Database URL
 DB_URL=$(DATABASE_URL)
 MIGRATIONS_PATH=./migrations
@@ -21,6 +22,9 @@ migrate-down:
 ## Force a specific migration version (be careful!)
 migrate-force:
 	@migrate -path $(MIGRATIONS_PATH) -database "$(DB_URL)" force $(version)
+	
+debug:
+	@echo "DB_URL = $(DB_URL)"
 
 ## Show help
 help:

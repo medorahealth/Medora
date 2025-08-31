@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -15,16 +16,26 @@ var DB *pgxpool.Pool
 func InitDB() *pgxpool.Pool {
 	dbURL := os.Getenv("DATABASE_URL")
 	if dbURL == "" {
-		// Fallback if env var not set
-		dbURL = "postgres://zomato_user:secret123@localhost:5432/zomato_app"
+		log.Fatal("❌ DATABASE_URL not set")
 	}
 
+	// Mask password for logging
+	safeURL := dbURL
+	if idx := strings.Index(safeURL, "@"); idx != -1 {
+		beforeAt := safeURL[:idx]
+		if colonIdx := strings.Index(beforeAt, ":"); colonIdx != -1 {
+			beforeAt = beforeAt[:colonIdx+1] + "****"
+		}
+		safeURL = beforeAt + safeURL[idx:]
+	}
+	fmt.Println("🔗 Using DB URL:", safeURL)
+
+	// Parse and configure
 	config, err := pgxpool.ParseConfig(dbURL)
 	if err != nil {
 		log.Fatalf("Unable to parse DATABASE_URL: %v\n", err)
 	}
 
-	// Tune pool
 	config.MaxConns = 10
 	config.MinConns = 2
 	config.MaxConnLifetime = time.Hour
@@ -37,7 +48,6 @@ func InitDB() *pgxpool.Pool {
 		log.Fatalf("Unable to create connection pool: %v\n", err)
 	}
 
-	// test the connection
 	if err := dbpool.Ping(ctx); err != nil {
 		log.Fatalf("Unable to connect to database: %v\n", err)
 	}
