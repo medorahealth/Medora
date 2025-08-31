@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":["file:///Users/utkarshshukla/Medora/client/pages/_document.js"],"sourcesContent":["// pages/_document.js (JavaScript)\nimport Document, { Html, Head, Main, NextScript } from \"next/document\";\n\nclass MyDocument extends Document {\n  render() {\n    return (\n      <Html>\n        <Head>{/* Any custom head elements here */}</Head>\n        <body>\n          <Main />\n          <NextScript />\n        </body>\n      </Html>\n    );\n  }\n}\n\nexport default MyDocument; // This is crucial\n"],"names":[],"mappings":"AAAA,kCAAkC;;;;;AAClC;;;AAEA,MAAM,mBAAmB,yHAAA,CAAA,UAAQ;IAC/B,SAAS;QACP,qBACE,qKAAC,yHAAA,CAAA,OAAI;;8BACH,qKAAC,yHAAA,CAAA,OAAI;;;;;8BACL,qKAAC;;sCACC,qKAAC,yHAAA,CAAA,OAAI;;;;;sCACL,qKAAC,yHAAA,CAAA,aAAU;;;;;;;;;;;;;;;;;IAInB;AACF;uCAEe;CAAY,kBAAkB","debugId":null}},
+    {"offset": {"line": 100, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 114, "column": 0}, "map": {"version":3,"sources":["file:///Users/utkarshshukla/Medora/client/pages/_app.js"],"sourcesContent":["// pages/_app.js\nimport \"../styles/global.css\";\nimport { SessionProvider } from \"next-auth/react\";\n\nfunction MyApp({ Component, pageProps: { session, ...pageProps } }) {\n  return (\n    <SessionProvider session={session}>\n      <Component {...pageProps} />\n    </SessionProvider>\n  );\n}\n\nexport default MyApp;\n"],"names":[],"mappings":"AAAA,gBAAgB;;;;;AAEhB;;;;AAEA,SAAS,MAAM,EAAE,SAAS,EAAE,WAAW,EAAE,OAAO,EAAE,GAAG,WAAW,EAAE;IAChE,qBACE,qKAAC,mIAAA,CAAA,kBAAe;QAAC,SAAS;kBACxB,cAAA,qKAAC;YAAW,GAAG,SAAS;;;;;;;;;;;AAG9B;uCAEe","debugId":null}},
+    {"offset": {"line": 140, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
