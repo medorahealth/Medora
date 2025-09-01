@@ -1,5 +1,5 @@
+// internal/http/routers.go
 package http
-
 
 import (
 	"net/http"
@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func NewRouter(userHandler *handlers.UserHandler) http.Handler {
+func NewRouter(userHandler *handlers.UserHandler, orderHandler *handlers.OrderHandler) http.Handler {
 	r := chi.NewRouter()
 
 	// Global middlewares (logging, recovery, cors, etc.) can go here
@@ -18,6 +18,9 @@ func NewRouter(userHandler *handlers.UserHandler) http.Handler {
 
 	// User routes
 	r.Mount("/api/v1/users", router.UserRouter(userHandler))
+
+	// Order routes
+	r.Mount("/api/v1/orders", router.OrderRouter(orderHandler))
 
 	// Health check or root endpoint
 	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {

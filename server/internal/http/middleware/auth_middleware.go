@@ -1,21 +1,17 @@
+// internal/middleware/auth_middleware.go
 package middleware
 
 import (
-	"context"
 	"net/http"
 	"os"
 	"strings"
-
 	"github.com/medorahealth/Medora/server/internal/util/auth"
 
 	"github.com/golang-jwt/jwt/v5"
+	
 )
 
-type contextKey string
-
-const userIDKey contextKey = "userID"
-
-// Authenticate checks JWT token and adds userID to context
+// Authenticate validates JWT token and injects userID into context
 func Authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
@@ -34,10 +30,10 @@ func Authenticate(next http.Handler) http.Handler {
 
 		jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
 		if jwtSecretKey == "" {
-			jwtSecretKey = "your-secret-key"
+			jwtSecretKey = "your-secret-key" // fallback for dev
 		}
 
-		claims := &auth.Claims{}
+		claims := &Claims{} // your custom claims struct
 		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 			return []byte(jwtSecretKey), nil
 		})
@@ -47,15 +43,14 @@ func Authenticate(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), userIDKey, claims.UserID)
+		// Inject userID into context
+		ctx := auth.SetUserIDInContext(r.Context(), claims.UserID)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
-// GetUserIDFromContext extracts user ID from request context
-func GetUserIDFromContext(ctx context.Context) string {
-	if userID, ok := ctx.Value(userIDKey).(string); ok {
-		return userID
-	}
-	return ""
+// Claims defines the JWT payload structure
+type Claims struct {
+	UserID string `json:"user_id"`
+	jwt.RegisteredClaims
 }
